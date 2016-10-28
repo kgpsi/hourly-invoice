@@ -1,0 +1,22 @@
+{
+  "name": "pdf_project",
+  "description": "Hourly invoice form filler",
+  "main": "",
+  "authors": [
+    "Khanh Ngueyn"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "boostrap#^3.3.7",
+    "bootbox.js": "bootbox#^4.4.0"
+  }
+}

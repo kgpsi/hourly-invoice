@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    </head>
+    <body>
+        <div class="container">
+          <h2>Hourly Invoice Form</h2>
+          <form id="invoiceForm">
+            <h3>Bill to address:</h3>
+            <div class="row">
+              {# I could use some kind of address validation like USPS or Google places api #}
+              <div class="col-md-12 form-group">
+                <input name="address" id="address" class="form-control" placeholder="Enter Address" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <div class="col-md-4">
+                  <input name="city" id="city" class="form-control" placeholder="Enter City" required>
+                </div>
+                <div class="col-md-4">
+                  <select class="form-control" name="state_select" id="state">
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                    <option value="AZ">Arizona</option>
+                    <option value="AR">Arkansas</option>
+                    <option value="CA">California</option>
+                    <option value="CO">Colorado</option>
+                    <option value="CT">Connecticut</option>
+                    <option value="DE">Delaware</option>
+                    <option value="DC">District Of Columbia</option>
+                    <option value="FL">Florida</option>
+                    <option value="GA">Georgia</option>
+                    <option value="HI">Hawaii</option>
+                    <option value="ID">Idaho</option>
+                    <option value="IL">Illinois</option>
+                    <option value="IN">Indiana</option>
+                    <option value="IA">Iowa</option>
+                    <option value="KS">Kansas</option>
+                    <option value="KY">Kentucky</option>
+                    <option value="LA">Louisiana</option>
+                    <option value="ME">Maine</option>
+                    <option value="MD">Maryland</option>
+                    <option value="MA">Massachusetts</option>
+                    <option value="MI">Michigan</option>
+                    <option value="MN">Minnesota</option>
+                    <option value="MS">Mississippi</option>
+                    <option value="MO">Missouri</option>
+                    <option value="MT">Montana</option>
+                    <option value="NE">Nebraska</option>
+                    <option value="NV">Nevada</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="NJ">New Jersey</option>
+                    <option value="NM">New Mexico</option>
+                    <option value="NY">New York</option>
+                    <option value="NC">North Carolina</option>
+                    <option value="ND">North Dakota</option>
+                    <option value="OH">Ohio</option>
+                    <option value="OK">Oklahoma</option>
+                    <option value="OR">Oregon</option>
+                    <option value="PA">Pennsylvania</option>
+                    <option value="RI">Rhode Island</option>
+                    <option value="SC">South Carolina</option>
+                    <option value="SD">South Dakota</option>
+                    <option value="TN">Tennessee</option>
+                    <option value="TX">Texas</option>
+                    <option value="UT">Utah</option>
+                    <option value="VT">Vermont</option>
+                    <option value="VA">Virginia</option>
+                    <option value="WA">Washington</option>
+                    <option value="WV">West Virginia</option>
+                    <option value="WI">Wisconsin</option>
+                    <option value="WY">Wyoming</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <input name="zip_code" id="zip_code" class="form-control" placeholder="Enter ZipCode" type="number" min="10000" max="99999" required>
+                </div>
+              </div>
+            </div>
+            <h3>Hourly Information: <button type="button" class="btn btn-primary" id="add_description">Add</button></h3>
+            <div id="hourly_info">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label for="description">Description</label>
+                    <input name="description" id="description_1" class="form-control" placeholder="Enter Description" required="">
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="hourly_price">Hourly Price</label>
+                    <input name="hourly_price" id="hourly_rate_1" class="form-control" placeholder="0" type="number" step="0.01" required="">
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="description">Hours</label>
+                    <input name="hours" id="hours_1" class="form-control" placeholder="0.0" type="number" step="0.1" required>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="description">Total</label>
+                    <input name="total" id="total_price_1" class="form-control" placeholder="0.0" type="number" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row form-group">
+              <button type="submit" class="btn btn-default pull-right" id="submitForm">Submit</button>
+            </div>
+          </form>
+        </div>
+    </body>
+    <script type="text/javascript" src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootbox.js/bootbox.js') }}"></script>
+    <script>
+      console.log('here');
+      var numDescriptionRows = 1;
+      newRowEventListener(numDescriptionRows);
+      $('#add_description').on('click', function() {
+        if (numDescriptionRows < 5) {
+          // Add new row
+          numDescriptionRows++
+          $("#hourly_info").append('<div class="form-group">\
+                <div class="row">\
+                  <div class="col-sm-6">\
+                    <label for="description">Description</label>\
+                    <input name="description" id="description_' + numDescriptionRows + '"class="form-control" placeholder="Enter Description">\
+                  </div>\
+                  <div class="col-sm-2">\
+                    <label for="hourly_price">Hourly Price</label>\
+                    <input name="hourly_price" id="hourly_rate_' + numDescriptionRows + '"class="form-control" placeholder="0">\
+                  </div>\
+                  <div class="col-sm-2">\
+                    <label for="description">Hours</label>\
+                    <input name="hours" id="hours_' + numDescriptionRows + '"class="form-control" placeholder="0.0">\
+                  </div>\
+                  <div class="col-sm-2">\
+                    <label for="description">Total</label>\
+                    <input name="total" id="total_price_' + numDescriptionRows + '"class="form-control" placeholder="0.0">\
+                  </div>\
+                </div>\
+              </div>');
+          newRowEventListener(numDescriptionRows);
+        } else {
+          bootbox.alert('Maximum of description is 5');
+        }
+      });
+
+      $('#invoiceForm').submit(function(e) {
+        var url = "{{ path('fill_invoice_form') }}";
+        console.log('here');
+        e.preventDefault();
+        var data = {
+          'address' : $('#address').val(),
+          'city' : $('#city').val(),
+          'zip_code' : $('#zip_code').val(),
+          'state' : $('#state option:selected').val(),
+        };
+        var descriptionData = {};
+        for (i = 1; i <= numDescriptionRows; i++) { 
+            descriptionData[i] = {
+              'description' : $('#description_' + i).val(),
+              'hourly_rate' : $('#hourly_rate_' + i).val(),
+              'hours' : $('#hours_' + i).val()
+            };
+        }
+        data['descriptions'] = descriptionData;
+        $.post(url, data, function(result) {
+          if (result.hasOwnProperty('file_name')) {
+            var filePath = "{{ path('retrieve_filled_invoice') }}";
+              bootbox.dialog({ 
+                  size: 'large',
+                  title: "Transfer Complete",
+                  message: '<object width="100%" height="500" data="' + filePath + '?name=' + result.file_name + '"></object>',
+                  closeButton: true,
+                  onEscape: function() {
+                      window.location.href = window.location.href;
+                  },
+              });
+            }
+        }).fail(function(data) {
+            bootbox.alert("<center><b>File not found</b></center>");
+            return false;
+        });
+      });
+
+      // Calculate row total when hours and hour rates are changed
+      function newRowEventListener(number) {
+        $('#hourly_rate_' + number +', #hours_' + number).change(function() {
+          var id = $(this).attr('id');
+          var number = id.substr(id.length - 1);
+          var hourly_price = $("#hourly_rate_" + number).val();
+          var hours = $("#hours_" + number).val();
+          if (hourly_price && hours) {
+            var total = hourly_price * hours;
+            $('#total_price_' + number).val(total);
+          } else {
+            $('#total_price_' + number).val(0);
+          }
+        });
+      }
+    </script>
+</html>
